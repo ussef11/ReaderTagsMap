@@ -58,7 +58,7 @@ function Map() {
         headers: myHeaders,
         body: raw,
         redirect: 'follow',
-        referrerPolicy: "unsafe_url" 
+        
       };
 
       
