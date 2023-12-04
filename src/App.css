@@ -1,7 +1,7 @@
 div.mapcontainer{
   height: 100vh !important;
   width: 100%;
-  height: 100%;
+ 
   position: absolute;
   top: 0;
   left: 0;
@@ -25,7 +25,7 @@ div.mapcontainer{
 }
 
 .lat{
-  font-size: 20px;
+  font-size: 15px;
  
   font-weight: 600;
   margin-top: -8px;
@@ -38,11 +38,10 @@ div.mapcontainer{
 
 .parcimp{
   margin-bottom: 25px;
- 
-  height: 30px;
+  height: 48px;
   border-radius: 7px;
-    width: 209px;
-    border: 1px solid black;
+  width: 242px;
+  border: 1px solid black
 }
 
 .gm-style-iw {
@@ -92,3 +91,10 @@ div.mapcontainer{
   font-weight: 500;
 }
 
+
+.typebac{
+  width: 250px;
+  height: 50px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+}

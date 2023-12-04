@@ -30,28 +30,40 @@ function Map() {
   const [latLng , setLatlng]  = useState(null)
   const [markers, setMarkers] = useState([]);
   const [ntag   , setntag] = useState()
+  const [typebac   , setTypebac] = useState()
   const  [numParc  , setNumparc]  = useState('')
   const  [err  , seterr]  = useState(false)
   const  [messsage  , setmesssage]  = useState({message : "" , background : ""  , show :false})
 
 
-
+  
 
   const handlesubmit = ()=>{
     console.log("latitude"  , latLng)
  
 
     console.log( "ntag" , ntag)
-    console.log( "Numparc" , numParc)
+    console.log( "typebac" , typebac)
 
     var myHeaders = new Headers();
       myHeaders.append("Content-Type", "application/json");
+
+      if(typebac == "--SELECT TYPE BAC--" || typebac == null ){
+        setmesssage({ background : "red" , message: "Type bac incorrect !",  show :true })
+        setTimeout(() => {
+          setmesssage({show : false})
+        }, 
+        2000);
+        return;
+
+      }
 
       var raw = JSON.stringify({
         "numparc": numParc,
         "lat": latLng.lat,
         "lng":latLng.lng,
-        "ntag": ntag
+        "ntag": ntag,
+        "typebac":typebac
       });
 
       var requestOptions = {
@@ -91,8 +103,7 @@ function Map() {
         })
         .catch(error => 
           {
-            console.log('error', error)
-          
+            console.log('error', error) 
         });
   }
 
@@ -240,14 +251,25 @@ function Map() {
                 <div style={{textAlign:"left"}}>  <button style={{background:"none" , border : "none"}} onClick={handleRemoveMarker}> <img  style={{width : "20px"}} src="https://img.icons8.com/?size=256&id=FgOBVsURv5ar&format=png" /> </button>   </div>
                 <div className={`alert  ${messsage.show ? "" : 'hidden'} `} style={{background : messsage.background}}> <p> {messsage.message} </p>   </div>
                 <div style={{textAlign:'center'}} >  <h2>Marker Information</h2> </div> 
+
+
                  <div className="mydata">   
                   <div  className="datadivfirst">    <p className="myp">Latitude:</p>  <p className="lat">{selectedMarker.position.lat.toFixed(10)}</p> </div> 
                 <div className="datadiv">     <p className="myp">Longitude:</p>  <p className="lat"> {selectedMarker.position.lng.toFixed(10)}</p> </div> 
                 <div className="datadiv">   <p className="myp">Numero de tag:</p>  <p className="ntag">{ntag}</p> </div> 
-               
+                <select  value={typebac}  onChange={(e)=>{setTypebac(e.target.value)}} className="typebac">  
+                <option> --SELECT TYPE BAC--</option>
+                <option>    B660</option>
+                <option>  B360  </option>
+                <option>  B770 </option>
+                <option>  COLONNE  </option>
+                <option>Bac Galvalisé </option>
+               </select>
                 </div>
               <div>     <input  value={numParc}  onChange={(e)=>{setNumparc(e.target.value)}} className="parcimp" type="text" placeholder="Numero de parc" />
               </div> 
+
+
                 <button className="subbtn"  onClick={handlesubmit}> Submit </button>
                
               </div>
