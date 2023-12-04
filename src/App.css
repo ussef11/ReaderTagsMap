@@ -47,7 +47,11 @@ div.mapcontainer{
 
 .gm-style-iw {
   width: 500px; 
+  
  
+}
+.gm-style .gm-style-iw-c{
+  max-width: 308px !important;
 }
 
 .subbtn{
@@ -88,7 +92,3 @@ div.mapcontainer{
   font-weight: 500;
 }
 
-@-prefix-keyframes slide {
-  from {height: 0;}
-  to {height: 300px;}
-}

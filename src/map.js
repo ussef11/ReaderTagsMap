@@ -58,7 +58,7 @@ function Map() {
         headers: myHeaders,
         body: raw,
         redirect: 'follow',
-        
+        referrerPolicy: "unsafe_url" 
       };
 
       
@@ -228,7 +228,7 @@ function Map() {
             <InfoWindow
               position={selectedMarker.position}
               onCloseClick={handleInfoWindowClose}
-              options={{ maxWidth: 500 }}
+              
             >
                <div  style={{textAlign:'center'}}>
 
