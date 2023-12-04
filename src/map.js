@@ -22,12 +22,18 @@ import location from "./media/location.png"
 
 import bac from "./media/bac.png"
 
+
+
 function Map() {
   const [map, setMap] = useState(null);
   const [position, setPosition] = useState(null);
   const [markers, setMarkers] = useState([]);
   const [ntag   , setntag] = useState()
-  const  [numParc  , setNumparc]  = useState()
+  const  [numParc  , setNumparc]  = useState('')
+  const  [err  , seterr]  = useState(false)
+  const  [messsage  , setmesssage]  = useState({message : "" , background : ""  , show :false})
+
+
 
 
   const handlesubmit = ()=>{
@@ -36,6 +42,56 @@ function Map() {
 
     console.log( "ntag" , ntag)
     console.log( "Numparc" , numParc)
+
+    var myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+
+      var raw = JSON.stringify({
+        "numparc": numParc,
+        "lat": position.lat,
+        "lng":position.lng,
+        "ntag": ntag
+      });
+
+      var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+      };
+
+      
+
+
+      fetch("http://rabat.geodaki.com:5000/api/tag", requestOptions)
+        .then(response => response.json())
+        .then(result => {
+          console.log(result)
+          const regex = /«[^»]+»/;
+          if(result.details){
+            // console.log( "fffffff" , result.details)
+            setmesssage({ background : "red" , message: result.details.replace(regex, '') ,  show :true })
+            setTimeout(() => {
+              setmesssage({show : false})
+            }, 
+            2000);
+          
+          }else{
+            setmesssage({ background : "#36b700" , message: result.message ,  show :true })
+            setTimeout(() => {
+              setmesssage({show : false})
+            }, 
+            2000);
+          }
+
+          console.log(messsage)
+        
+        })
+        .catch(error => 
+          {
+            console.log('error', error)
+          
+        });
   }
 
 
@@ -171,11 +227,14 @@ function Map() {
             <InfoWindow
               position={selectedMarker.position}
               onCloseClick={handleInfoWindowClose}
-              // options={{ maxWidth: 500 }}
+              options={{ maxWidth: 500 }}
             >
-               <div  style={{textAlign:'center'  }}>
-                <div style={{textAlign:"right"}}>  <button style={{background:"none" , border : "none"}} onClick={handleRemoveMarker}> <img  style={{width : "20px"}} src="https://img.icons8.com/?size=256&id=FgOBVsURv5ar&format=png" /> </button>   </div>
-                 
+               <div  style={{textAlign:'center'}}>
+
+
+
+                <div style={{textAlign:"left"}}>  <button style={{background:"none" , border : "none"}} onClick={handleRemoveMarker}> <img  style={{width : "20px"}} src="https://img.icons8.com/?size=256&id=FgOBVsURv5ar&format=png" /> </button>   </div>
+                <div className={`alert  ${messsage.show ? "" : 'hidden'} `} style={{background : messsage.background}}> <p> {messsage.message} </p>   </div>
                 <div style={{textAlign:'center'}} >  <h2>Marker Information</h2> </div> 
                  <div className="mydata">   
                   <div  className="datadivfirst">    <p className="myp">Latitude:</p>  <p className="lat">{selectedMarker.position.lat.toFixed(10)}</p> </div> 
@@ -185,7 +244,7 @@ function Map() {
                 </div>
               <div>     <input  value={numParc}  onChange={(e)=>{setNumparc(e.target.value)}} className="parcimp" type="text" placeholder="Numero de parc" />
               </div> 
-                <button  onClick={handlesubmit}  > Submit </button>
+                <button className="subbtn"  onClick={handlesubmit}> Submit </button>
                
               </div>
             </InfoWindow>

@@ -40,4 +40,55 @@ div.mapcontainer{
   margin-bottom: 25px;
  
   height: 30px;
+  border-radius: 7px;
+    width: 209px;
+    border: 1px solid black;
+}
+
+.gm-style-iw {
+  width: 500px; 
+ 
+}
+
+.subbtn{
+  border: none;
+    width: 73px;
+    height: 41px;
+    border-radius: 19px;
+    background: cadetblue;
+    font-size: 16px;
+}
+
+.alert {
+  height: 29px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  border-radius: 23px;
+
+  transition-property: visibility, opacity;
+  transition-duration: 200ms;
+  transition-delay: 0;
+
+  &.hidden {
+    visibility: hidden;
+    opacity: 0;
+    transition-duration: 0, 500ms;
+    transition-property: opacity, visibility;
+    transition-delay: 0, 500ms;
+    transition: transform 0.3s ease-out;
+  }
+}
+
+
+
+.alert p{
+  color: white;
+  font-weight: 500;
+}
+
+@-prefix-keyframes slide {
+  from {height: 0;}
+  to {height: 300px;}
 }
