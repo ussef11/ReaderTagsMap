@@ -57,7 +57,8 @@ function Map() {
         method: 'POST',
         headers: myHeaders,
         body: raw,
-        redirect: 'follow'
+        redirect: 'follow',
+        referrerPolicy: "unsafe_url" 
       };
 
       
