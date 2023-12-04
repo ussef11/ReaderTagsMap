@@ -18,12 +18,26 @@ import React, {
   useContext,
   useCallback,
 } from "react";
+import location from "./media/location.png"
+
+import bac from "./media/bac.png"
 
 function Map() {
   const [map, setMap] = useState(null);
   const [position, setPosition] = useState(null);
   const [markers, setMarkers] = useState([]);
   const [ntag   , setntag] = useState()
+  const  [numParc  , setNumparc]  = useState()
+
+
+  const handlesubmit = ()=>{
+    console.log("latitude"  , position.lat)
+    console.log("longitude"  , position.lng)
+
+    console.log( "ntag" , ntag)
+    console.log( "Numparc" , numParc)
+  }
+
 
   const handleMapClick = (event) => {
     setMarkers([])
@@ -63,6 +77,7 @@ function Map() {
             lat: position.coords.latitude,
             lng: position.coords.longitude,
           });
+        
 
           console.log("POS", position);
         },
@@ -123,17 +138,31 @@ function Map() {
   }}
     onClick={handleMapClick}
     center={position}
-    zoom={8}  
+    zoom={18}  
     onUnmount={onUnmount}
     onLoad={onLoad}
 
     
 >  
+
+
+
+
+<Marker position={position}  icon={{url: location, 
+    scaledSize: new window.google.maps.Size(30, 30), 
+    origin: new window.google.maps.Point(0,0),
+    anchor: new window.google.maps.Point(0, 0)}}    />
+
+
 {markers.map((marker) => (
             <Marker
               key={marker.id}
               position={marker.position}
               onClick={() => handleMarkerClick(marker)}
+              icon={{url: bac, 
+                scaledSize: new window.google.maps.Size(30, 30), 
+                origin: new window.google.maps.Point(0,0),
+                anchor: new window.google.maps.Point(0, 0)}}
               // draggable={true}
             />
           ))}
@@ -154,9 +183,9 @@ function Map() {
                 <div className="datadiv">   <p className="myp">Numero de tag:</p>  <p className="ntag">{ntag}</p> </div> 
                
                 </div>
-              <div>     <input className="parcimp" type="text" placeholder="Numero de parc" />
+              <div>     <input  value={numParc}  onChange={(e)=>{setNumparc(e.target.value)}} className="parcimp" type="text" placeholder="Numero de parc" />
               </div> 
-                <button> Submit </button>
+                <button  onClick={handlesubmit}  > Submit </button>
                
               </div>
             </InfoWindow>
