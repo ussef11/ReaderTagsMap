@@ -27,6 +27,7 @@ import bac from "./media/bac.png"
 function Map() {
   const [map, setMap] = useState(null);
   const [position, setPosition] = useState(null);
+  const [latLng , setLatlng]  = useState(null)
   const [markers, setMarkers] = useState([]);
   const [ntag   , setntag] = useState()
   const  [numParc  , setNumparc]  = useState('')
@@ -37,8 +38,8 @@ function Map() {
 
 
   const handlesubmit = ()=>{
-    console.log("latitude"  , position.lat)
-    console.log("longitude"  , position.lng)
+    console.log("latitude"  , latLng)
+ 
 
     console.log( "ntag" , ntag)
     console.log( "Numparc" , numParc)
@@ -48,8 +49,8 @@ function Map() {
 
       var raw = JSON.stringify({
         "numparc": numParc,
-        "lat": position.lat,
-        "lng":position.lng,
+        "lat": latLng.lat,
+        "lng":latLng.lng,
         "ntag": ntag
       });
 
@@ -98,6 +99,8 @@ function Map() {
 
   const handleMapClick = (event) => {
     setMarkers([])
+    setLatlng(null)
+
     const newMarker = {
       id: new Date().getTime(),
       position: {
@@ -105,7 +108,7 @@ function Map() {
         lng: event.latLng.lng(),
       },
     };
-
+    setLatlng({lat :event.latLng.lat() , lng:event.latLng.lng()  })
     setMarkers([newMarker]);
   };
   const handleMarkerClick = (marker) => {
