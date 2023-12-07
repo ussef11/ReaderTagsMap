@@ -63,7 +63,7 @@ div.mapcontainer{
 }
 
 .alert {
-  height: 29px;
+  height: 44px;
   text-align: center;
   justify-content: center;
   align-items: center;
@@ -88,7 +88,10 @@ div.mapcontainer{
 
 .alert p{
   color: white;
-  font-weight: 500;
+
+  font-size: 22px;
+
+  font-weight: 700;
 }
 
 
@@ -97,4 +100,107 @@ div.mapcontainer{
   height: 50px;
   margin-bottom: 20px;
   border-radius: 8px;
+}
+.videos{
+  position: absolute;
+    width: 100%;
+    height: 100%;
+    background: black;
+    top: 0;
+    bottom: 0;
+    padding: 0;
+    margin: 0;
+}
+
+.divsbutton{
+  position: absolute;
+  z-index: 9;
+  top: 89%;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+}
+.btntroch{
+  background: none;
+  border: none;
+}
+.btntroch img{
+  width: 30px;
+  height: 30px;
+  z-index: 500;
+  position: relative;
+ 
+  right: 20px;
+}
+
+.retry{
+  z-index: 500;
+  width: 30px;
+  height: 30px;
+
+  position: relative;
+  top :17px;
+  left: 20px;
+
+}
+
+
+
+
+
+.file-input {
+  margin: -15px 0px 9px 0px;
+}
+
+.file-input__input {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.file-input__label {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  font-size: 14px;
+  padding: 10px 12px;
+  background-color: #42a85d;
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.25);
+}
+
+.file-input__label svg {
+  height: 16px;
+  margin-right: 4px;
+}
+
+
+.imagesedit{
+  width: 100%;
+    display: flex;
+    max-width: 300px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.itemimages{
+  width: 71px;
+    display: flex;
+    margin: -6px 7px 11px;
+    background: #a6d6ff;
+    border-radius: 20px;
+    height: 29px;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+}
+.itemimages button{
+  border: none;
+    background: none;
 }
