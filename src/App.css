@@ -145,6 +145,12 @@ div.mapcontainer{
 }
 
 
+.loader{
+  width: 28px;
+    height: 28px;
+    margin-top: 3px;
+}
+
 
 
 

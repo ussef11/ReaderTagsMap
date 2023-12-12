@@ -80,7 +80,7 @@ export const Login = () => {
 
     <div className="form">
       
-    <div class="top">
+    <div className="top">
             <h1>Login Page</h1>
         </div>
       {/* <form className="register-form">

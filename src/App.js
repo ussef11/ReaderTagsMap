@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import logo from "./logo.svg";
 import "./App.css";
 import Map from "./map"
@@ -14,13 +15,13 @@ function App() {
 
     <authcontext.Provider  value={{ username , setUsername , navigate , setNavigate , userid , setUserid}}>  
     <div>
-      {/* <Map/> */}
+      <Map/>
 
       
 
-    { navigate !== 'login' ?   <Map/>
+    {/* { navigate !== 'login' ?   <Map/>
           :
-      <Login/>}
+      <Login/>} */}
      
     </div>
     </authcontext.Provider>

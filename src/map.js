@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import logo from "./logo.svg";
 import "./App.css";
 import {
@@ -19,6 +20,7 @@ import React, {
   useCallback,
 } from "react";
 import location from "./media/location.png"
+import loader from "./media/loader.gif"
 
 import bac from "./media/bac.png"
 import { authcontext } from "./helper/authcontext";
@@ -37,6 +39,7 @@ function Map() {
   const  [messsage  , setmesssage]  = useState({message : "" , background : ""  , show :false})
   const {userid, setUserid} = useContext(authcontext)
   const {username  , setUsername} = useContext(authcontext)
+  const [Loader , setLoader]  = useState(false)
    
   const [selectedFile, setSelectedFile] = useState([]);
   const [  filesdata, setFiles] =  useState([])
@@ -126,11 +129,12 @@ const handlesubmit = async () => {
     formData.append('lng', latLng.lng);
     formData.append('ntag', ntag);
     formData.append('typebac', typebac);
-    formData.append('userid', userid);
+    // formData.append('userid', userid);
+    setLoader(true)
     const response = await fetch("http://192.168.100.50:5000/api/tag", {
       method: "POST",
       body: formData,
-    });
+    })
     const result = await response.json();
     console.log(result);
     if (result.details) {
@@ -139,12 +143,14 @@ const handlesubmit = async () => {
         message: result.details.replace(/«[^»]+»/, ''),
         show: true,
       });
+      setLoader(false)
     } else {
       setmesssage({
         background: "#36b700",
         message: result.message,
         show: true,
       });
+      setLoader(false)
     }
     setTimeout(() => {
       setmesssage({ show: false });
@@ -163,7 +169,7 @@ const handlesubmit = async () => {
         lng: event.latLng.lng(),
       },
     };
-    setLatlng({lat :event.latLng.lat() , lng:event.latLng.lng()  })
+    setLatlng({lat:event.latLng.lat(),lng:event.latLng.lng()})
     setMarkers([newMarker]);
   };
   const handleMarkerClick = (marker) => {
@@ -192,11 +198,11 @@ const handlesubmit = async () => {
     } else {
       console.error("Geolocation is not supported by your browser.");
     }
-  }, []);
+  },[]);
 
-  const onUnmount = React.useCallback(function callback(map) {
+  const onUnmount = React.useCallback(function callback(map){
     setMap(null);
-  }, []);
+  },[]);
 
   const [libraries] = useState(["places"]);
   const { isLoaded } = useJsApiLoader({
@@ -322,9 +328,9 @@ const handlesubmit = async () => {
       ))}     
          </div>     
 
-                <button className="subbtn"  onClick={handlesubmit}> Submit </button>
+                <button className="subbtn"  onClick={handlesubmit}>  {Loader ?     <img  className="loader" src={loader} alt="loader" />  : 'Submit'}     </button>
 
-                
+                {/* Submit */}
                
               </div>
             </InfoWindow>
