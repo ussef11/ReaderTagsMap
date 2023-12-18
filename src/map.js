@@ -43,6 +43,7 @@ function Map() {
    
   const [selectedFile, setSelectedFile] = useState([]);
   const [  filesdata, setFiles] =  useState([])
+  const  [countdata , setCountdata]  = useState(0)
 
   const handleFileChange = (e) => {
     const files = e.target.files;
@@ -67,6 +68,33 @@ function Map() {
 
 // console.log(isArrayStructure1(testArray1));  // Should return true
 // console.log(isArrayStructure2(testArray2));  // Should return true
+
+
+
+
+
+
+ useEffect(()=>{
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("Cookie", "frontend_lang=fr_FR");
+
+
+
+    var requestOptions = {
+    method: 'GET',
+    headers: myHeaders,
+    redirect: 'follow'
+    };
+
+    fetch(`http://192.168.100.50:5000/api/count`, requestOptions)
+    .then(response => response.json())
+    .then(result => setCountdata(result.data))
+    .catch(error => console.log('error', error));
+
+ },[messsage]) 
+
+
 
 
 
@@ -268,7 +296,9 @@ const handlesubmit = async () => {
                <div style={{textAlign:"left"}}>  <button style={{background:"none" , border : "none"}} onClick={handleRemoveMarker}> <img  style={{width : "20px"}} src="https://img.icons8.com/?size=256&id=FgOBVsURv5ar&format=png" /> </button>   </div>
                <div className={`alert  ${messsage.show ? "" : 'hidden'} `} style={{background : messsage.background}}> <p> {messsage.message} </p>   </div>
                {/* <div style={{textAlign:'center'}} >  <h2  style={{margin:0}}  >Marker Information</h2> </div>  */}
-               <div style={{textAlign:'center'}} >  <h3  style={{margin:0 }}  >utilisateur: <span style={{color:"red"}}>  {username}  </span></h3> </div> 
+               <div style={{textAlign:'center'}} > 
+               
+                <h3  style={{margin:0 }}  >Nombre de bacs relevés aujourd'hui: <span style={{color:"red"}}>  {countdata}  </span></h3> </div> 
                 <div className="mydata">   
                 <div  className="datadivfirst">    <p className="myp">Latitude:</p>  <p className="lat">{selectedMarker.position.lat.toFixed(10)}</p> </div> 
                 <div className="datadiv">     <p className="myp">Longitude:</p>  <p className="lat"> {selectedMarker.position.lng.toFixed(10)}</p> </div> 
