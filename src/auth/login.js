@@ -40,7 +40,10 @@ export const Login = () => {
 
       fetch("https://info.geodaki.com:4201/signin", requestOptions)
         .then(response => response.json())
-        .then(result => console.log(result))
+        .then(result => {
+          console.log(result)
+          setNavigate('home')
+        })
         .catch(error => console.log('error', error));
 
 
