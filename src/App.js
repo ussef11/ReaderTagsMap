@@ -8,22 +8,22 @@ import { useState } from "react";
 import Camera from "./camera";
 
 function App() {
-  const [username, setUsername ] = useState('')
-  const [userid, setUserid ] = useState('')
-  const [navigate, setNavigate ] = useState('login')
+  const [username, setUsername] = useState('')
+  const [userid, setUserid] = useState('')
+  const [navigate, setNavigate] = useState('login')
   return (
 
-    <authcontext.Provider  value={{ username , setUsername , navigate , setNavigate , userid , setUserid}}>  
-    <div>
-      <Map/>
+    <authcontext.Provider value={{ username, setUsername, navigate, setNavigate, userid, setUserid }}>
+      <div>
+        {/* <Map/> */}
 
-      
+        <Login />
 
-    {/* { navigate !== 'login' ?   <Map/>
+        {/* { navigate !== 'login' ?   <Map/>
           :
       <Login/>} */}
-     
-    </div>
+
+      </div>
     </authcontext.Provider>
   );
 }
