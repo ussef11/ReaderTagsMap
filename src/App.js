@@ -17,11 +17,11 @@ function App() {
       <div>
         {/* <Map/> */}
 
-        <Login />
+        {/* <Login /> */}
 
-        {/* { navigate !== 'login' ?   <Map/>
+        {navigate !== 'login' ? <Map />
           :
-      <Login/>} */}
+          <Login />}
 
       </div>
     </authcontext.Provider>
