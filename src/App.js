@@ -15,13 +15,13 @@ function App() {
 
     <authcontext.Provider value={{ username, setUsername, navigate, setNavigate, userid, setUserid }}>
       <div>
-        {/* <Map/> */}
+        <Map />
 
-        {/* <Login /> */}
 
-        {navigate !== 'login' ? <Map />
+
+        {/* { navigate !== 'login' ?   <Map/>
           :
-          <Login />}
+      <Login/>} */}
 
       </div>
     </authcontext.Provider>

@@ -22,13 +22,37 @@ export const Login = () => {
     console.log(username, password);
     if (username != null && password != null) {
 
+      // var myHeaders = new Headers();
+      // myHeaders.append("Content-Type", "application/json");
+
+      // var raw = JSON.stringify({
+      //   "username": username,
+      //   "password": password,
+
+      // });
+
+      // var requestOptions = {
+      //   method: 'POST',
+      //   headers: myHeaders,
+      //   body: raw,
+      //   redirect: 'follow'
+      // };
+
+      // fetch("https://info.geodaki.com:4201/signin", requestOptions)
+      //   .then(response => response.json())
+      //   .then(result => {
+      //     console.log(result)
+      //     setNavigate('home')
+      //   })
+      //   .catch(error => console.log('error', error));
+
+
       var myHeaders = new Headers();
       myHeaders.append("Content-Type", "application/json");
-
+      myHeaders.append("Cookie", "frontend_lang=fr_FR");
       var raw = JSON.stringify({
         "username": username,
         "password": password,
-
       });
 
       var requestOptions = {
@@ -38,47 +62,23 @@ export const Login = () => {
         redirect: 'follow'
       };
 
-      fetch("https://info.geodaki.com:4201/signin", requestOptions)
+      fetch("http://192.168.100.50:5000/api/getusers", requestOptions)
         .then(response => response.json())
         .then(result => {
-          console.log(result)
-          setNavigate('home')
+          if (result.data[0].username === username && result.data[0].password) {
+            console.log(result.data[0].username)
+            setUserid(result.data[0].id)
+            setNavigate('home')
+          }
         })
-        .catch(error => console.log('error', error));
+        .catch(error => {
+          setmesssage({ background: "red", message: "incorrect !", show: true })
+          setTimeout(() => {
+            setmesssage({ show: false })
+          },
+            2000);
+        });
 
-
-      // var myHeaders = new Headers();
-      // myHeaders.append("Content-Type", "application/json");
-      // myHeaders.append("Cookie", "frontend_lang=fr_FR");
-      // var raw = JSON.stringify({
-      //     "username": username,
-      //     "password": password,
-      //     });
-
-      //     var requestOptions = {
-      //     method: 'POST',
-      //     headers: myHeaders,
-      //     body: raw,
-      //     redirect: 'follow'
-      //     };
-
-      //     fetch("http://192.168.100.50:5000/api/getusers", requestOptions)
-      //     .then(response => response.json())
-      //     .then(result =>{ 
-      //         if(result.data[0].username ===  username && result.data[0].password){
-      //             console.log(result.data[0].username)
-      //             setUserid(result.data[0].id)
-      //             setNavigate('home')
-      //         }
-      //     })
-      //     .catch(error => {
-      //         setmesssage({ background : "red" , message: "incorrect !",  show :true })
-      //         setTimeout(() => {
-      //           setmesssage({show : false})
-      //         }, 
-      //         2000);
-      //     });
-      // 
     }
     // const storedCredentials = JSON.parse(localStorage.getItem("Auth")) || [];
     // const existingUser = storedCredentials.find(cred => cred.username === username);
